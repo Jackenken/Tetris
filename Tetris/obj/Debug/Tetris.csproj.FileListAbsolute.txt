@@ -17,3 +17,13 @@ E:\珠\大学\大三\net应用开发\俄罗斯方块\新建文件夹\Tetris\Tetr
 E:\珠\大学\大三\net应用开发\俄罗斯方块\新建文件夹\Tetris\Tetris\obj\Debug\Tetris.csproj.CoreCompileInputs.cache
 E:\珠\大学\大三\net应用开发\俄罗斯方块\新建文件夹\Tetris\Tetris\obj\Debug\Tetris.exe
 E:\珠\大学\大三\net应用开发\俄罗斯方块\新建文件夹\Tetris\Tetris\obj\Debug\Tetris.pdb
+C:\dotnet_final\Tetris\bin\Debug\Tetris.exe.config
+C:\dotnet_final\Tetris\bin\Debug\Tetris.exe
+C:\dotnet_final\Tetris\bin\Debug\Tetris.pdb
+C:\dotnet_final\Tetris\obj\Debug\Tetris.csprojAssemblyReference.cache
+C:\dotnet_final\Tetris\obj\Debug\Tetris.Form1.resources
+C:\dotnet_final\Tetris\obj\Debug\Tetris.Properties.Resources.resources
+C:\dotnet_final\Tetris\obj\Debug\Tetris.csproj.GenerateResource.cache
+C:\dotnet_final\Tetris\obj\Debug\Tetris.csproj.CoreCompileInputs.cache
+C:\dotnet_final\Tetris\obj\Debug\Tetris.exe
+C:\dotnet_final\Tetris\obj\Debug\Tetris.pdb

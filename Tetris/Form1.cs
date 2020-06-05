@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -386,18 +387,24 @@ namespace Tetris
             //清除以前画的图形
             g.Clear(this.BackColor);
             //画出已经掉下的方块
+            // 对于已经落下的砖块，统一用一种颜色表示
             for (int bgy = 0; bgy < 20; bgy++)
             {
                 for (int bgx = 0; bgx < 14; bgx++)
                 {
                     if (bgGround[bgy, bgx] == 1)
                     {
-                        g.FillRectangle(new SolidBrush(Color.Blue), bgx * 20, bgy * 20, 20, 20);
-                        g.DrawRectangle(new Pen(Color.Red,1), bgx * 20, bgy * 20, 20, 20);
+                        g.FillRectangle(new SolidBrush(Color.FromArgb(204,255,204)), bgx * 20, bgy * 20, 20, 20);
+                        g.DrawRectangle(new Pen(Color.FromArgb(46,139,87),1), bgx * 20, bgy * 20, 20, 20);
                     }
                 }
             }
             //绘制当前的方块  
+            // 初步想法：边框颜色固定，砖块颜色随机显示
+            // 定义随机数种子生成rgb值
+            int R = rand.Next(130, 255);
+            int G = rand.Next(130, 255);
+            int B = rand.Next(130, 255);
             for (int y = 0; y < 4; y++)
             {
                 for (int x = 0; x < 4; x++)
@@ -405,8 +412,8 @@ namespace Tetris
                     if (currentTrick[y, x] == 1)
                     {
                         //定义方块每一个小单元的边长为20
-                        g.FillRectangle(new SolidBrush(Color.Blue), (x + currentX) * 20, (y + currentY) * 20, 20, 20);
-                        g.DrawRectangle(new Pen(Color.Black,1f), (x + currentX) * 20, (y + currentY) * 20, 20, 20);
+                        g.FillRectangle(new SolidBrush(Color.FromArgb(R,G,B)), (x + currentX) * 20, (y + currentY) * 20, 20, 20);
+                        g.DrawRectangle(new Pen(Color.FromArgb(R, G, B), 1f), (x + currentX) * 20, (y + currentY) * 20, 20, 20);
                     }
                 }
             }
@@ -478,7 +485,8 @@ namespace Tetris
                     bgGround[y, x] = 0;
                 }
             }
-            timer1.Interval = 1000;
+            // 下落时间间隔，默认难度为1000
+            // timer1.Interval = 1000;
             BeginTricks();
             this.Focus();
         }
@@ -507,7 +515,7 @@ namespace Tetris
 
         }
 
-
+        int time_temp;
         /// <summary>
         /// 键盘释放事件监听器方法
         /// </summary>
@@ -520,7 +528,8 @@ namespace Tetris
                 //方块往下掉落
                 //Console.WriteLine("S键被释放");
                 timer1.Stop();
-                timer1.Interval = 1000;
+                timer1.Interval = time_temp;
+                //timer1.Interval = 1000;
                 timer1.Start();
             }
         }
@@ -566,8 +575,34 @@ namespace Tetris
                 //方块往右边移动
                 //Console.WriteLine("S键被按下");
                 timer1.Stop();
+                time_temp = timer1.Interval;
                 timer1.Interval = 10;
                 timer1.Start();
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // 这里是游戏难度设置的代码
+            //  初步想法 设置下落时间
+            // this.comboBox1.SelectedIndex = 0;
+            if (this.comboBox1.SelectedIndex == 0)
+            {
+                 // 简单难度
+                Console.WriteLine("now is simple");
+                 timer1.Interval = 500;
+            }
+            else if (this.comboBox1.SelectedIndex == 1)
+            {
+                // 正常一点
+                Console.WriteLine("now is normal");
+                timer1.Interval = 1000;
+            }
+            else if (this.comboBox1.SelectedIndex == 2)
+            {
+                // 作死难度
+                Console.WriteLine("now is compleeeeeex");
+                timer1.Interval = 200;
             }
         }
     }
