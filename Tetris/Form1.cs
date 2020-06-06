@@ -11,6 +11,29 @@ using System.Windows.Forms;
 
 namespace Tetris
 {
+    public enum GameState
+    {
+        /// <summary>
+        /// 单机
+        /// </summary>
+        Single,
+
+        /// <summary>
+        /// 主机
+        /// </summary>
+        Host,
+
+        /// <summary>
+        /// 副机
+        /// </summary>
+        Client,
+
+        /// <summary>
+        /// 游戏结束
+        /// </summary>
+        End
+    }
+
     public partial class Form1 : Form
     {
 
@@ -24,7 +47,10 @@ namespace Tetris
         private int tricksNum = 4;//方块的数目
         private int statusNum = 4;//方块的方位
         private Image myImage;//游戏面板背景
+        private Image yourImage;//对方的游戏面板背景
         private Random rand = new Random();//随机数
+
+        private Form2 netform;//联机对打
 
 
         /// <summary>
@@ -183,6 +209,7 @@ namespace Tetris
         {
             //初始化面板，得到面板对象作背景图片
             myImage = new Bitmap(panel1.Width, panel1.Height);
+            yourImage = new Bitmap(panel2.Width, panel2.Height);
             //初始分数为0
             score = 0;
         }
@@ -604,6 +631,25 @@ namespace Tetris
                 Console.WriteLine("now is compleeeeeex");
                 timer1.Interval = 200;
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (button3.Text == "联机对打")
+            {
+                DialogResult dr = netform.ShowDialog();
+                if (dr == DialogResult.Cancel)
+                {
+                    return;
+                }
+
+                button3.Text = "断开连接";
+            }
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
