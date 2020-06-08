@@ -11,6 +11,9 @@ using System.Windows.Forms;
 
 namespace Tetris
 {
+    /// <summary>
+    /// 定义游戏状态：单击，线上联机，结束 
+    /// </summary>
     public enum GameState
     {
         /// <summary>
@@ -51,7 +54,8 @@ namespace Tetris
         private Random rand = new Random();//随机数
 
         private Form2 netform;//联机对打
-
+        private GameState state;//游戏状态
+        private int[,] bgGroundRemote;//定义远端地图
 
         /// <summary>
         /// 定义砖块int[i,j,y,x] 
@@ -512,6 +516,7 @@ namespace Tetris
                     bgGround[y, x] = 0;
                 }
             }
+            state = GameState.Single;
             // 下落时间间隔，默认难度为1000
             // timer1.Interval = 1000;
             BeginTricks();
@@ -642,14 +647,37 @@ namespace Tetris
                 {
                     return;
                 }
-
+                state = GameState.Host;
                 button3.Text = "断开连接";
             }
         }
 
+        /// <summary>
+        /// 绘制远端地图
+        /// </summary>
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
-
+            //单机游戏不绘制
+            if (state == GameState.Single)
+                return;
+            
+            //创建窗体画布
+            Graphics g = Graphics.FromImage(yourImage);
+            //清除以前画的图形
+            g.Clear(this.BackColor);
+            //画出已经掉下的方块
+            //对于已经落下的砖块，统一用一种颜色表示
+            for (int bgy = 0; bgy < 20; bgy++)
+            {
+                for (int bgx = 0; bgx < 14; bgx++)
+                {
+                    if (bgGroundRemote[bgy, bgx] == 1)
+                    {
+                        g.FillRectangle(new SolidBrush(Color.FromArgb(204, 255, 204)), bgx * 5, bgy * 5, 5, 5);
+                        g.DrawRectangle(new Pen(Color.FromArgb(46, 139, 87), 1), bgx * 5, bgy * 5, 5, 5);
+                    }
+                }
+            }
         }
     }
 }

@@ -101,7 +101,6 @@ namespace Tetris
         /// <summary>
         /// 监听器等待连接的回调方法
         /// </summary>
-        /// <param name="iar">表示异步操作的状态</param>
         private void DoAcceptTcpClientCallBack(IAsyncResult iar)
         {
 
@@ -132,7 +131,6 @@ namespace Tetris
         /// <summary>
         /// 连接主机的回调方法
         /// </summary>
-        /// <param name="iar">表示异步操作的状态</param>
         private void DoBeginConnectCallBack(IAsyncResult iar)
         {
 
