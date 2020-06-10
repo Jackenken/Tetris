@@ -640,16 +640,16 @@ namespace Tetris
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (button3.Text == "联机对打")
-            {
-                DialogResult dr = netform.ShowDialog();
-                if (dr == DialogResult.Cancel)
-                {
-                    return;
-                }
-                state = GameState.Host;
-                button3.Text = "断开连接";
-            }
+            //if (button3.Text == "联机对打")
+            //{
+            //    DialogResult dr = netform.ShowDialog();
+            //    if (dr == DialogResult.Cancel)
+            //    {
+            //        return;
+            //    }
+            //    state = GameState.Host;
+            //    button3.Text = "断开连接";
+            //}
         }
 
         /// <summary>
@@ -678,6 +678,18 @@ namespace Tetris
                     }
                 }
             }
+        }
+
+        private void netform_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //Guideform guideform = new Guideform();
+            //guideform.Show();
+            //this.Close();
         }
     }
 }
