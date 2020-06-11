@@ -28,9 +28,9 @@ namespace Tetris
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form1 singlegame = new Form1();
+            Form1 singlegame = new Form1(this);
             singlegame.Show();
-            //this.Close();
+            this.Hide();
             
         }
 
@@ -38,13 +38,18 @@ namespace Tetris
         {
             Form3 netgame = new Form3();
             netgame.Show();
-            //this.Close();
+            this.Hide();
 
         }
 
         private void Guideform_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            System.Environment.Exit(0);
         }
     }
 }

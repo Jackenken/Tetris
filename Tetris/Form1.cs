@@ -174,6 +174,14 @@ namespace Tetris
             InitializeComponent();
         }
 
+        public Guideform guideform;
+
+        public Form1(Guideform that)
+        {
+            InitializeComponent();
+            guideform = that;
+        }
+
         /// <summary>
         /// 窗体默认加载方法
         /// </summary>
@@ -615,12 +623,13 @@ namespace Tetris
         
 
         
-
+        //返回主页面
         private void button4_Click(object sender, EventArgs e)
         {
             //Guideform guideform = new Guideform();
-            //guideform.Show();
-            //this.Close();
+            guideform.Show();
+            //this.Owner.Show();
+            this.Dispose(true);
         }
     }
 }
