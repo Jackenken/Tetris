@@ -25,6 +25,18 @@ namespace Tetris
             guideform = that;
         }
 
+        //使得关闭按钮灰化
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                int CS_NOCLOSE = 0x200;
+                CreateParams parameters = base.CreateParams;
+                parameters.ClassStyle |= CS_NOCLOSE;
+                return parameters;
+            }
+        }
+
         private void Form3_Load(object sender, EventArgs e)
         {
 
@@ -65,6 +77,11 @@ namespace Tetris
         {            
             guideform.Show();            
             this.Dispose(true);
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

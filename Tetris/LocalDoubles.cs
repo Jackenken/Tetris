@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,8 +10,7 @@ using System.Windows.Forms;
 
 namespace Tetris
 {
-    
-    public partial class Form1 : Form
+    public partial class LocalDoubles : Form
     {
 
         //private Graphics g;//定义窗体画布
@@ -26,114 +24,114 @@ namespace Tetris
         private int statusNum = 4;//方块的方位
         private Image myImage;//游戏面板背景
         private Random rand = new Random();//随机数
-        
+
         /// <summary>
         /// 定义砖块int[i,j,y,x] 
         /// tricks:i为块砖,j为状态,y为列,x为行
         /// </summary>
-        private int[, , ,] tricks = {{  
-                                     {  
-                                         {1,0,0,0},  
-                                         {1,0,0,0},  
-                                         {1,0,0,0},  
-                                         {1,0,0,0}  
-                                     },  
-                                     {  
-                                         {1,1,1,1},  
-                                         {0,0,0,0},  
-                                         {0,0,0,0},  
-                                         {0,0,0,0}  
-                                     },  
-                                     {  
-                                         {1,0,0,0},  
-                                         {1,0,0,0},  
-                                         {1,0,0,0},  
-                                         {1,0,0,0}  
-                                     },  
-                                     {  
-                                         {1,1,1,1},  
-                                         {0,0,0,0},  
-                                         {0,0,0,0},  
-                                         {0,0,0,0}  
-                                     }  
-                                },  
-                                {  
-                                      {  
-                                          {1,1,0,0},  
-                                          {1,1,0,0},  
-                                          {0,0,0,0},  
-                                          {0,0,0,0}  
-                                      },  
-                                      {  
-                                          {1,1,0,0},  
-                                          {1,1,0,0},  
-                                          {0,0,0,0},  
-                                          {0,0,0,0}  
-                                      },  
-                                      {  
-                                          {1,1,0,0},  
-                                          {1,1,0,0},  
-                                          {0,0,0,0},  
-                                          {0,0,0,0}  
-                                      },  
-                                      {  
-                                          {1,1,0,0},  
-                                          {1,1,0,0},  
-                                          {0,0,0,0},  
-                                          {0,0,0,0}  
-                                      }  
-                                  },  
-                                  {  
-                                      {  
-                                          {1,0,0,0},  
-                                          {1,1,0,0},  
-                                          {0,1,0,0},  
-                                          {0,0,0,0}  
-                                      },  
-                                      {  
-                                          {0,1,1,0},  
-                                          {1,1,0,0},  
-                                          {0,0,0,0},  
-                                          {0,0,0,0}  
-                                      },  
-                                      {  
-                                          {1,0,0,0},  
-                                          {1,1,0,0},  
-                                          {0,1,0,0},  
-                                          {0,0,0,0}  
-                                      },  
-                                      {  
-                                          {0,1,1,0},  
-                                          {1,1,0,0},  
-                                          {0,0,0,0},  
-                                          {0,0,0,0}  
-                                      }  
-                                  },  
-                                  {  
-                                      {  
-                                          {1,1,0,0},  
-                                          {0,1,0,0},  
-                                          {0,1,0,0},  
-                                          {0,0,0,0}  
-                                      },  
-                                      {  
-                                          {0,0,1,0},  
-                                          {1,1,1,0},  
-                                          {0,0,0,0},  
-                                          {0,0,0,0}  
-                                      },  
-                                      {  
-                                          {1,0,0,0},  
-                                          {1,0,0,0},  
-                                          {1,1,0,0},  
-                                          {0,0,0,0}  
-                                      },  
-                                      {  
-                                          {1,1,1,0},  
-                                          {1,0,0,0},  
-                                          {0,0,0,0},  
-                                          {0,0,0,0}  
-                                      }  
+        private int[,,,] tricks = {{
+                                     {
+                                         {1,0,0,0},
+                                         {1,0,0,0},
+                                         {1,0,0,0},
+                                         {1,0,0,0}
+                                     },
+                                     {
+                                         {1,1,1,1},
+                                         {0,0,0,0},
+                                         {0,0,0,0},
+                                         {0,0,0,0}
+                                     },
+                                     {
+                                         {1,0,0,0},
+                                         {1,0,0,0},
+                                         {1,0,0,0},
+                                         {1,0,0,0}
+                                     },
+                                     {
+                                         {1,1,1,1},
+                                         {0,0,0,0},
+                                         {0,0,0,0},
+                                         {0,0,0,0}
+                                     }
+                                },
+                                {
+                                      {
+                                          {1,1,0,0},
+                                          {1,1,0,0},
+                                          {0,0,0,0},
+                                          {0,0,0,0}
+                                      },
+                                      {
+                                          {1,1,0,0},
+                                          {1,1,0,0},
+                                          {0,0,0,0},
+                                          {0,0,0,0}
+                                      },
+                                      {
+                                          {1,1,0,0},
+                                          {1,1,0,0},
+                                          {0,0,0,0},
+                                          {0,0,0,0}
+                                      },
+                                      {
+                                          {1,1,0,0},
+                                          {1,1,0,0},
+                                          {0,0,0,0},
+                                          {0,0,0,0}
+                                      }
+                                  },
+                                  {
+                                      {
+                                          {1,0,0,0},
+                                          {1,1,0,0},
+                                          {0,1,0,0},
+                                          {0,0,0,0}
+                                      },
+                                      {
+                                          {0,1,1,0},
+                                          {1,1,0,0},
+                                          {0,0,0,0},
+                                          {0,0,0,0}
+                                      },
+                                      {
+                                          {1,0,0,0},
+                                          {1,1,0,0},
+                                          {0,1,0,0},
+                                          {0,0,0,0}
+                                      },
+                                      {
+                                          {0,1,1,0},
+                                          {1,1,0,0},
+                                          {0,0,0,0},
+                                          {0,0,0,0}
+                                      }
+                                  },
+                                  {
+                                      {
+                                          {1,1,0,0},
+                                          {0,1,0,0},
+                                          {0,1,0,0},
+                                          {0,0,0,0}
+                                      },
+                                      {
+                                          {0,0,1,0},
+                                          {1,1,1,0},
+                                          {0,0,0,0},
+                                          {0,0,0,0}
+                                      },
+                                      {
+                                          {1,0,0,0},
+                                          {1,0,0,0},
+                                          {1,1,0,0},
+                                          {0,0,0,0}
+                                      },
+                                      {
+                                          {1,1,1,0},
+                                          {1,0,0,0},
+                                          {0,0,0,0},
+                                          {0,0,0,0}
+                                      }
                                   }
                                     };
 
@@ -143,51 +141,42 @@ namespace Tetris
         /// 14*20的二维数组
         /// 20行，14列
         /// </summary>
-        private int[,] bgGround ={  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},  
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0}  
+        private int[,] bgGround ={
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0}
                                 };
 
         /// <summary>
         /// 主函数入口
         /// </summary>
-        public Form1()
-        {
-            InitializeComponent();
-        }
+        
 
-        public Guideform guideform;
-
-        public Form1(Guideform that)
-        {
-            InitializeComponent();
-            guideform = that;
-        }
+        
 
         /// <summary>
         /// 窗体默认加载方法
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Form1_Load(object sender, EventArgs e)
+        private void F_Load(object sender, EventArgs e)
         {
             //初始化面板，得到面板对象作背景图片
             myImage = new Bitmap(panel1.Width, panel1.Height);
@@ -402,8 +391,8 @@ namespace Tetris
                 {
                     if (bgGround[bgy, bgx] == 1)
                     {
-                        g.FillRectangle(new SolidBrush(Color.FromArgb(204,255,204)), bgx * 20, bgy * 20, 20, 20);
-                        g.DrawRectangle(new Pen(Color.FromArgb(46,139,87),1), bgx * 20, bgy * 20, 20, 20);
+                        g.FillRectangle(new SolidBrush(Color.FromArgb(204, 255, 204)), bgx * 20, bgy * 20, 20, 20);
+                        g.DrawRectangle(new Pen(Color.FromArgb(46, 139, 87), 1), bgx * 20, bgy * 20, 20, 20);
                     }
                 }
             }
@@ -420,7 +409,7 @@ namespace Tetris
                     if (currentTrick[y, x] == 1)
                     {
                         //定义方块每一个小单元的边长为20
-                        g.FillRectangle(new SolidBrush(Color.FromArgb(R,G,B)), (x + currentX) * 20, (y + currentY) * 20, 20, 20);
+                        g.FillRectangle(new SolidBrush(Color.FromArgb(R, G, B)), (x + currentX) * 20, (y + currentY) * 20, 20, 20);
                         g.DrawRectangle(new Pen(Color.FromArgb(R, G, B), 1f), (x + currentX) * 20, (y + currentY) * 20, 20, 20);
                     }
                 }
@@ -462,7 +451,7 @@ namespace Tetris
                         }
                     }
                     y++;
-                    label1.Text = "游戏得分： "+score.ToString(); ;
+                    label1.Text = "游戏得分： " + score.ToString(); ;
                     DrawTetris();
                 }
 
@@ -596,9 +585,9 @@ namespace Tetris
             // this.comboBox1.SelectedIndex = 0;
             if (this.comboBox1.SelectedIndex == 0)
             {
-                 // 简单难度
+                // 简单难度
                 Console.WriteLine("now is simple");
-                 timer1.Interval = 500;
+                timer1.Interval = 500;
             }
             else if (this.comboBox1.SelectedIndex == 1)
             {
@@ -642,9 +631,38 @@ namespace Tetris
             this.Dispose(true);
         }
 
+        //private void label1_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+
+
+
+        //========================================================
+
+
+        public LocalDoubles()
+        {
+            InitializeComponent();
+        }
+
+        public Guideform guideform;
+
+        public LocalDoubles(Guideform that)
+        {
+            InitializeComponent();
+            guideform = that;
+        }
+
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
+
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+
+        //}
     }
 }

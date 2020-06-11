@@ -68,6 +68,12 @@
     <Compile Include="Guideform.Designer.cs">
       <DependentUpon>Guideform.cs</DependentUpon>
     </Compile>
+    <Compile Include="LocalDoubles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LocalDoubles.Designer.cs">
+      <DependentUpon>LocalDoubles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -81,6 +87,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Guideform.resx">
       <DependentUpon>Guideform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LocalDoubles.resx">
+      <DependentUpon>LocalDoubles.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

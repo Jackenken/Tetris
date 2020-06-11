@@ -24,7 +24,18 @@ namespace Tetris
             InitializeComponent();
         }
 
-      
+        //使得关闭按钮灰化
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                int CS_NOCLOSE = 0x200;
+                CreateParams parameters = base.CreateParams;
+                parameters.ClassStyle |= CS_NOCLOSE;
+                return parameters;
+            }
+        }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
