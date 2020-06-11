@@ -17,6 +17,14 @@ namespace Tetris
             InitializeComponent();
         }
 
+        private Guideform guideform;
+
+        public Form3(Guideform that)
+        {
+            InitializeComponent();
+            guideform = that;
+        }
+
         private void Form3_Load(object sender, EventArgs e)
         {
 
@@ -51,6 +59,12 @@ namespace Tetris
                     //}
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {            
+            guideform.Show();            
+            this.Dispose(true);
         }
     }
 }

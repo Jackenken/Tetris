@@ -36,7 +36,7 @@ namespace Tetris
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form3 netgame = new Form3();
+            Form3 netgame = new Form3(this);
             netgame.Show();
             this.Hide();
 
