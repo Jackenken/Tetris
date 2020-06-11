@@ -54,6 +54,24 @@
             this.lbl_tip = new System.Windows.Forms.Label();
             this.cbo_ip = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
+
+            // 
+            // netform
+            // 
+            this.Client = null;
+            this.ClientSize = new System.Drawing.Size(239, 181);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Location = new System.Drawing.Point(52, 52);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "netform";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.State = Tetris.GameState.Single;
+            this.Text = "NetPlay Config";
+            this.Visible = false;
+            this.Load += new System.EventHandler(this.Form2_Load);
             // 
             // rad_host
             // 

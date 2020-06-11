@@ -52,8 +52,7 @@ namespace Tetris
         private Image myImage;//游戏面板背景
         private Image yourImage;//对方的游戏面板背景
         private Random rand = new Random();//随机数
-
-        private Form2 netform;//联机对打
+        
         private GameState state;//游戏状态
         private int[,] bgGroundRemote;//定义远端地图
 
@@ -640,16 +639,8 @@ namespace Tetris
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //if (button3.Text == "联机对打")
-            //{
-            //    DialogResult dr = netform.ShowDialog();
-            //    if (dr == DialogResult.Cancel)
-            //    {
-            //        return;
-            //    }
-            //    state = GameState.Host;
-            //    button3.Text = "断开连接";
-            //}
+            Form2 netgame = new Form2();
+            netgame.Show();
         }
 
         /// <summary>
@@ -680,10 +671,7 @@ namespace Tetris
             }
         }
 
-        private void netform_Load(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void button4_Click(object sender, EventArgs e)
         {

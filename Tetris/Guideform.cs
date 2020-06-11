@@ -30,8 +30,13 @@ namespace Tetris
         {
             Form1 singlegame = new Form1();
             singlegame.Show();
-            this.Close();
+            //this.Close();
             
+        }
+
+        private void Guideform_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

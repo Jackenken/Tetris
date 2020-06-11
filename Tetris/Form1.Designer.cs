@@ -37,7 +37,6 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
-            this.netform = new Tetris.Form2();
             this.button4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -124,23 +123,7 @@
             this.button3.Text = "联机对打";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // netform
-            // 
-            this.netform.Client = null;
-            this.netform.ClientSize = new System.Drawing.Size(239, 181);
-            this.netform.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.netform.Location = new System.Drawing.Point(52, 52);
-            this.netform.MaximizeBox = false;
-            this.netform.MinimizeBox = false;
-            this.netform.Name = "netform";
-            this.netform.ShowIcon = false;
-            this.netform.ShowInTaskbar = false;
-            this.netform.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.netform.State = Tetris.GameState.Single;
-            this.netform.Text = "NetPlay Config";
-            this.netform.Visible = false;
-            this.netform.Load += new System.EventHandler(this.netform_Load);
+            
             // 
             // button4
             // 
