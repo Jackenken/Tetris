@@ -11,32 +11,7 @@ using System.Windows.Forms;
 
 namespace Tetris
 {
-    /// <summary>
-    /// 定义游戏状态：单击，线上联机，结束 
-    /// </summary>
-    public enum GameState
-    {
-        /// <summary>
-        /// 单机
-        /// </summary>
-        Single,
-
-        /// <summary>
-        /// 主机
-        /// </summary>
-        Host,
-
-        /// <summary>
-        /// 副机
-        /// </summary>
-        Client,
-
-        /// <summary>
-        /// 游戏结束
-        /// </summary>
-        End
-    }
-
+    
     public partial class Form1 : Form
     {
 
@@ -50,12 +25,8 @@ namespace Tetris
         private int tricksNum = 4;//方块的数目
         private int statusNum = 4;//方块的方位
         private Image myImage;//游戏面板背景
-        private Image yourImage;//对方的游戏面板背景
         private Random rand = new Random();//随机数
         
-        private GameState state;//游戏状态
-        private int[,] bgGroundRemote;//定义远端地图
-
         /// <summary>
         /// 定义砖块int[i,j,y,x] 
         /// tricks:i为块砖,j为状态,y为列,x为行
@@ -212,7 +183,6 @@ namespace Tetris
         {
             //初始化面板，得到面板对象作背景图片
             myImage = new Bitmap(panel1.Width, panel1.Height);
-            yourImage = new Bitmap(panel2.Width, panel2.Height);
             //初始分数为0
             score = 0;
         }
@@ -515,7 +485,6 @@ namespace Tetris
                     bgGround[y, x] = 0;
                 }
             }
-            state = GameState.Single;
             // 下落时间间隔，默认难度为1000
             // timer1.Interval = 1000;
             BeginTricks();
@@ -643,33 +612,7 @@ namespace Tetris
             netgame.Show();
         }
 
-        /// <summary>
-        /// 绘制远端地图
-        /// </summary>
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-            //单机游戏不绘制
-            if (state == GameState.Single)
-                return;
-            
-            //创建窗体画布
-            Graphics g = Graphics.FromImage(yourImage);
-            //清除以前画的图形
-            g.Clear(this.BackColor);
-            //画出已经掉下的方块
-            //对于已经落下的砖块，统一用一种颜色表示
-            for (int bgy = 0; bgy < 20; bgy++)
-            {
-                for (int bgx = 0; bgx < 14; bgx++)
-                {
-                    if (bgGroundRemote[bgy, bgx] == 1)
-                    {
-                        g.FillRectangle(new SolidBrush(Color.FromArgb(204, 255, 204)), bgx * 5, bgy * 5, 5, 5);
-                        g.DrawRectangle(new Pen(Color.FromArgb(46, 139, 87), 1), bgx * 5, bgy * 5, 5, 5);
-                    }
-                }
-            }
-        }
+        
 
         
 

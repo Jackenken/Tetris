@@ -34,6 +34,14 @@ namespace Tetris
             
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form3 netgame = new Form3();
+            netgame.Show();
+            //this.Close();
+
+        }
+
         private void Guideform_Load(object sender, EventArgs e)
         {
 

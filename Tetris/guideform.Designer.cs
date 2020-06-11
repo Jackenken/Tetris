@@ -63,6 +63,7 @@
             this.button3.TabIndex = 2;
             this.button3.Text = "点击进入联机双打";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Guideform
             // 

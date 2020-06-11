@@ -49,21 +49,7 @@ namespace Tetris
         /// 是否取消连接
         /// </summary>
         bool abort;
-
-        /// <summary>
-        /// 游戏模式
-        /// </summary>
-        GameState state;
-
-        /// <summary>
-        /// 游戏模式
-        /// </summary>
-        public GameState State
-        {
-            get { return state; }
-            set { state = value; }
-        }
-
+        
         /// <summary>
         /// 异步状态
         /// </summary>
@@ -123,7 +109,7 @@ namespace Tetris
                 Restore();
                 return;
             }
-            state = GameState.Host;
+            //state = GameState.Host;
             this.DialogResult = DialogResult.OK;
             this.Hide();
         }
@@ -153,7 +139,7 @@ namespace Tetris
                 Restore();
                 return;
             }
-            state = GameState.Client;
+            //state = GameState.Client;
             this.DialogResult = DialogResult.OK;
             this.Hide();
         }

@@ -56,6 +56,12 @@
     <Compile Include="Form2.NetForm.Designer.cs">
       <DependentUpon>Form2.NetForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form3.NetFight.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form3.NetFight.Designer.cs">
+      <DependentUpon>Form3.NetFight.cs</DependentUpon>
+    </Compile>
     <Compile Include="Guideform.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +75,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form2.NetForm.resx">
       <DependentUpon>Form2.NetForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form3.NetFight.resx">
+      <DependentUpon>Form3.NetFight.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Guideform.resx">
       <DependentUpon>Guideform.cs</DependentUpon>

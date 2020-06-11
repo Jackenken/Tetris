@@ -68,7 +68,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.State = Tetris.GameState.Single;
+            //this.State = Tetris.GameState.Single;
             this.Text = "NetPlay Config";
             this.Visible = false;
             this.Load += new System.EventHandler(this.Form2_Load);
