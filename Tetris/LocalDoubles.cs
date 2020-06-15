@@ -176,12 +176,15 @@ namespace Tetris
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void F_Load(object sender, EventArgs e)
+        private void LocalDoubles_Load(object sender, EventArgs e)
         {
             //初始化面板，得到面板对象作背景图片
+            MessageBox.Show("进入加载myImage函数");
             myImage = new Bitmap(panel1.Width, panel1.Height);
+            
             //初始分数为0
             score = 0;
+            MessageBox.Show("退出加载myImage函数");
         }
 
         /// <summary>
@@ -656,6 +659,48 @@ namespace Tetris
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (button5.Text == "暂停双人游戏")
+            {
+                button5.Text = "继续双人游戏";
+                timer1.Stop();
+            }
+            else
+            {
+                button5.Text = "暂停双人游戏";
+                timer1.Start();
+            }
+
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            guideform.Show();
+            this.Dispose(true);
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint_1(object sender, PaintEventArgs e)
         {
 
         }

@@ -62,5 +62,12 @@ namespace Tetris
         {
             System.Environment.Exit(0);
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            LocalDoubles localdoubelsform = new LocalDoubles(this);
+            localdoubelsform.Show();
+            this.Hide();
+        }
     }
 }

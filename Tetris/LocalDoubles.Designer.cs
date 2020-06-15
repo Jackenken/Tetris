@@ -48,6 +48,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(295, 391);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint_1);
             // 
             // panel2
             // 
@@ -55,14 +56,15 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(295, 391);
             this.panel2.TabIndex = 1;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(907, 167);
+            this.button1.Location = new System.Drawing.Point(429, 55);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(160, 23);
             this.button1.TabIndex = 2;
-            this.button1.Text = "暂停游戏";
+            this.button1.Text = "开始双人游戏";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -74,15 +76,17 @@
             this.button2.TabIndex = 3;
             this.button2.Text = "暂停游戏";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(429, 107);
+            this.button4.Location = new System.Drawing.Point(898, 133);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(159, 23);
+            this.button4.Size = new System.Drawing.Size(112, 23);
             this.button4.TabIndex = 5;
-            this.button4.Text = "开始双人游戏";
+            this.button4.Text = "暂停游戏";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click_1);
             // 
             // button7
             // 
@@ -92,6 +96,7 @@
             this.button7.TabIndex = 8;
             this.button7.Text = "返回主菜单";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // label1
             // 
@@ -120,15 +125,19 @@
             this.button5.TabIndex = 6;
             this.button5.Text = "暂停双人游戏";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "简单",
+            "一般",
+            "困难"});
             this.comboBox1.Location = new System.Drawing.Point(24, 216);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(75, 20);
             this.comboBox1.TabIndex = 11;
-            this.comboBox1.Text = "简单; 一般";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // LocalDoubles

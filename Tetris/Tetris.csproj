@@ -68,6 +68,12 @@
     <Compile Include="Guideform.Designer.cs">
       <DependentUpon>Guideform.cs</DependentUpon>
     </Compile>
+    <Compile Include="Local2players.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Local2players.Designer.cs">
+      <DependentUpon>Local2players.cs</DependentUpon>
+    </Compile>
     <Compile Include="LocalDoubles.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +93,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Guideform.resx">
       <DependentUpon>Guideform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local2players.resx">
+      <DependentUpon>Local2players.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LocalDoubles.resx">
       <DependentUpon>LocalDoubles.cs</DependentUpon>
