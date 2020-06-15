@@ -49,7 +49,21 @@ namespace Tetris
         /// 是否取消连接
         /// </summary>
         bool abort;
-        
+
+        /// <summary>
+		/// 游戏模式
+		/// </summary>
+		GameState state;
+
+        /// <summary>
+        /// 游戏模式
+        /// </summary>
+        public GameState State
+        {
+            get { return state; }
+            set { state = value; }
+        }
+
         /// <summary>
         /// 异步状态
         /// </summary>
@@ -60,7 +74,7 @@ namespace Tetris
         {
             InitializeComponent2();
         }
-
+        
         private void Form2_Load(object sender, EventArgs e)
         {
 
@@ -196,7 +210,7 @@ namespace Tetris
         /// </summary>
         private void btn_cancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
 
         /// <summary>

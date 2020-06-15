@@ -613,13 +613,7 @@ namespace Tetris
                 timer1.Interval = 200;
             }
         }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Form2 netgame = new Form2();
-            netgame.Show();
-        }
-
+        
         //使得关闭按钮灰化
         protected override CreateParams CreateParams
         {

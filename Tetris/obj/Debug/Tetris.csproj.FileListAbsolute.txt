@@ -54,3 +54,4 @@ D:\Users\江琨\Desktop\大三春季\.NET\2\Tetris\Tetris\obj\Debug\Tetris.cspro
 D:\Users\江琨\Desktop\大三春季\.NET\2\Tetris\Tetris\obj\Debug\Tetris.exe
 D:\Users\江琨\Desktop\大三春季\.NET\2\Tetris\Tetris\obj\Debug\Tetris.pdb
 D:\Users\江琨\Desktop\大三春季\.NET\2\Tetris\Tetris\obj\Debug\Tetris.LocalDoubles.resources
+E:\珠\大学\大三\net应用开发\俄罗斯方块\改进俄罗斯方块\Github_Tetris\Tetris\Tetris\obj\Debug\Tetris.LocalDoubles.resources
