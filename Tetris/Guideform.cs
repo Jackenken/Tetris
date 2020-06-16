@@ -65,7 +65,7 @@ namespace Tetris
 
         private void button2_Click(object sender, EventArgs e)
         {
-            LocalDoubles localdoubelsform = new LocalDoubles(this);
+            Local2players localdoubelsform = new Local2players(this);
             localdoubelsform.Show();
             this.Hide();
         }
