@@ -36,9 +36,8 @@ namespace Tetris
         private bool rightlife = true;
         private int leftplayer = 0;
         private int rightplayer = 0;
-
-        private int[] tricksshapex = new int[200];
-        private int[] tricksshapey = new int[200];
+        private int[] tricksshapex = new int[120];
+        private int[] tricksshapey = new int[120];
         
         /// <summary>
         /// 定义砖块int[i,j,y,x] 
@@ -250,7 +249,8 @@ namespace Tetris
             //随机生成砖码和状态码(0-4)  
             //int i = rand.Next(0, tricksNum);
             //int j = rand.Next(0, statusNum);
-            
+            if (leftplayer == 100)
+                leftplayer = 0;            
             currentTrickNum = tricksshapex[leftplayer++];
             currentDirection = tricksshapey[leftplayer++];
             //分配数组  
@@ -272,6 +272,8 @@ namespace Tetris
             //随机生成砖码和状态码(0-4)  
             //int i = rand.Next(0, tricksNum);
             //int j = rand.Next(0, statusNum);
+            if (rightplayer == 100)
+                rightplayer = 0;
             currentTrickNumRight = tricksshapex[rightplayer++]; 
             currentDirectionRight = tricksshapey[rightplayer++]; ;
             //分配数组  
@@ -777,7 +779,7 @@ namespace Tetris
              timer1.Interval = 1000;
              timer2.Interval = 1000;
 
-            for (int u=0;u<200;u++)
+            for (int u=0;u<120;u++)
             {
                 tricksshapex[u]= rand.Next(0, tricksNum);
                 tricksshapey[u] = rand.Next(0, statusNum);
