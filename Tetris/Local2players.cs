@@ -32,7 +32,14 @@ namespace Tetris
         private Image myImageRight;//游戏面板背景
         private Random rand = new Random();//随机数
 
+        private bool leftlife = true;
+        private bool rightlife = true;
+        private int leftplayer = 0;
+        private int rightplayer = 0;
 
+        private int[] tricksshapex = new int[200];
+        private int[] tricksshapey = new int[200];
+        
         /// <summary>
         /// 定义砖块int[i,j,y,x] 
         /// tricks:i为块砖,j为状态,y为列,x为行
@@ -218,6 +225,7 @@ namespace Tetris
             myImageRight = new Bitmap(panel2.Width, panel2.Height);
             //初始分数为0
             score = 0;
+            this.comboBox1.SelectedIndex = 0;
             scoreRight = 0;
         }
 
@@ -240,16 +248,17 @@ namespace Tetris
         private void BeginTricks()
         {
             //随机生成砖码和状态码(0-4)  
-            int i = rand.Next(0, tricksNum);
-            int j = rand.Next(0, statusNum);
-            currentTrickNum = i;
-            currentDirection = j;
+            //int i = rand.Next(0, tricksNum);
+            //int j = rand.Next(0, statusNum);
+            
+            currentTrickNum = tricksshapex[leftplayer++];
+            currentDirection = tricksshapey[leftplayer++];
             //分配数组  
             for (int y = 0; y < 4; y++)
             {
                 for (int x = 0; x < 4; x++)
                 {
-                    currentTrick[y, x] = tricks[i, j, y, x];
+                    currentTrick[y, x] = tricks[currentTrickNum, currentDirection, y, x];
                 }
             }
             //从(7,0)位置开始放砖块
@@ -261,16 +270,16 @@ namespace Tetris
         private void BeginTricksRight()
         {
             //随机生成砖码和状态码(0-4)  
-            int i = rand.Next(0, tricksNum);
-            int j = rand.Next(0, statusNum);
-            currentTrickNumRight = i;
-            currentDirectionRight = j;
+            //int i = rand.Next(0, tricksNum);
+            //int j = rand.Next(0, statusNum);
+            currentTrickNumRight = tricksshapex[rightplayer++]; 
+            currentDirectionRight = tricksshapey[rightplayer++]; ;
             //分配数组  
             for (int y = 0; y < 4; y++)
             {
                 for (int x = 0; x < 4; x++)
                 {
-                    currentTrickRight[y, x] = tricks[i, j, y, x];
+                    currentTrickRight[y, x] = tricks[currentTrickNumRight, currentDirectionRight, y, x];
                 }
             }
             //从(7,0)位置开始放砖块
@@ -350,7 +359,17 @@ namespace Tetris
                 {
                     //计时停止，游戏结束
                     timer1.Stop();
-                    MessageBox.Show("哈哈，你玩完了");
+                    leftlife = false;
+                    if (!rightlife)
+                    {
+                        if (score > scoreRight)
+                            MessageBox.Show("左边玩家获胜");
+                        else if (score < scoreRight)
+                            MessageBox.Show("右边玩家获胜");
+                        else
+                            MessageBox.Show("平局");
+                    }                    
+                    
                     return;
                 }
                 //下落完成，修改背景  
@@ -387,7 +406,16 @@ namespace Tetris
                 {
                     //计时停止，游戏结束
                     timer2.Stop();
-                    MessageBox.Show("哈哈，你玩完了");
+                    rightlife = false;
+                    if (!leftlife)
+                    {
+                        if (score > scoreRight)
+                            MessageBox.Show("左边玩家获胜");
+                        else if (score < scoreRight)
+                            MessageBox.Show("右边玩家获胜");
+                        else
+                            MessageBox.Show("平局");
+                    }
                     return;
                 }
                 //下落完成，修改背景  
@@ -728,7 +756,7 @@ namespace Tetris
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
             DownTricks();
         }
@@ -746,10 +774,27 @@ namespace Tetris
                 }
             }
             // 下落时间间隔，默认难度为1000
-            // timer1.Interval = 1000;
-            BeginTricks();
+             timer1.Interval = 1000;
+             timer2.Interval = 1000;
+
+            for (int u=0;u<200;u++)
+            {
+                tricksshapex[u]= rand.Next(0, tricksNum);
+                tricksshapey[u] = rand.Next(0, statusNum);
+            }
+            score = 0;
+            scoreRight = 0;
+            label1.Text = "游戏得分： " + score.ToString();
+            label2.Text = "游戏得分： " + scoreRight.ToString(); ;
+
+            leftlife = true;
+            rightlife = true;
+            leftplayer = 0;
+            rightplayer = 0;
+
             BeginTricksRight();
-            this.Focus();
+            BeginTricks();
+            //this.Focus();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -770,6 +815,7 @@ namespace Tetris
 
 
         int time_temp;
+        int time_tempright;
         /// <summary>
         /// 键盘释放事件监听器方法
         /// </summary>
@@ -785,6 +831,15 @@ namespace Tetris
                 timer1.Interval = time_temp;
                 //timer1.Interval = 1000;
                 timer1.Start();
+            }
+            if (e.KeyCode == Keys.K)
+            {
+                //方块往下掉落
+                //Console.WriteLine("S键被释放");
+                timer2.Stop();
+                timer2.Interval = time_tempright;
+                //timer1.Interval = 1000;
+                timer2.Start();
             }
         }
 
@@ -816,7 +871,7 @@ namespace Tetris
             }
             else if (e.KeyCode == Keys.D)
             {
-                //方块加速下落
+                //方块往右边移动
                 //Console.WriteLine("方块往右边移动");
                 if (CheckIsRight())
                 {
@@ -826,14 +881,51 @@ namespace Tetris
             }
             else if (e.KeyCode == Keys.S)
             {
-                //方块往右边移动
+                //方块加速下落
                 //Console.WriteLine("S键被按下");
                 timer1.Stop();
                 time_temp = timer1.Interval;
                 timer1.Interval = 10;
                 timer1.Start();
             }
+
+            if (e.KeyCode == Keys.I)
+            {
+                //旋转方块
+                //Console.WriteLine("I键被按下");
+                ChangeTricksRight();
+                DrawTetrisRight();
+            }
+            else if (e.KeyCode == Keys.J)
+            {
+                //方块往左边移动
+                if (CheckIsLeftRight())
+                {
+                    currentXRight--;
+                }
+                DrawTetrisRight();
+            }
+            else if (e.KeyCode == Keys.L)
+            {
+                //方块往右边移动
+                if (CheckIsRightRight())
+                {
+                    currentXRight++;
+                }
+                DrawTetrisRight();
+            }
+            else if (e.KeyCode == Keys.K)
+            {
+                //方块加速下落
+                
+                timer2.Stop();
+                time_tempright = timer2.Interval;
+                timer2.Interval = 10;
+                timer2.Start();
+            }
         }
+     
+    
 
 
 
@@ -866,6 +958,13 @@ namespace Tetris
             }
             else if (this.comboBox1.SelectedIndex == 2)
             {
+              
+                Console.WriteLine("now is normal");
+                timer1.Interval = 300;
+                timer2.Interval = 300;
+            }
+            else if (this.comboBox1.SelectedIndex == 3)
+            {
                 // 作死难度
                 Console.WriteLine("now is compleeeeeex");
                 timer1.Interval = 200;
@@ -885,9 +984,24 @@ namespace Tetris
             }
         }
 
-        private void timer2_Tick(object sender, EventArgs e)
+        private void Timer2_Tick(object sender, EventArgs e)
         {
-            DrawTetrisRight();
+            DownTricksRight();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
