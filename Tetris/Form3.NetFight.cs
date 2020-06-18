@@ -124,11 +124,6 @@ namespace Tetris
         int[,] mapRemote;
 
         /// <summary>
-        /// 方块图案
-        /// </summary>
-        Image blockImage=Resources.block;
-
-        /// <summary>
         /// 方块
         /// </summary>
         List<int[,,]> blocks;
@@ -137,12 +132,7 @@ namespace Tetris
         /// 绘制远端地图和下一个方块用笔刷
         /// </summary>
         Brush[] brushBlock;
-
-        /// <summary>
-        /// 能量槽颜色
-        /// </summary>
-        Color[] colorPow;
-
+        
         /// <summary>
         /// 速度
         /// </summary>
@@ -152,12 +142,7 @@ namespace Tetris
         /// 分数
         /// </summary>
         int score;
-
-        /// <summary>
-        /// 单机升级用分数
-        /// </summary>
-        int levelScore;
-
+        
         /// <summary>
         /// 当前高度
         /// </summary>
@@ -276,7 +261,6 @@ namespace Tetris
 
             //初始化笔刷, 颜色, 缓冲图形
             brushBlock = new Brush[] { null, Brushes.Red, Brushes.Orange, Brushes.Yellow, Brushes.Green, Brushes.Cyan, Brushes.Blue, Brushes.Purple, Brushes.Gray };
-            colorPow = new Color[] { Color.Yellow, Color.Orange, Color.Red, Color.Red };
             bf = BufferedGraphicsManager.Current.Allocate(panel1.CreateGraphics(), panel1.DisplayRectangle);
 
             //其它
@@ -299,7 +283,8 @@ namespace Tetris
                     {
                         continue;
                     }
-                    g.DrawImage(blockImage, new Point(j * blockSize, i * blockSize));
+                    g.FillRectangle(new SolidBrush(Color.FromArgb(204, 255, 204)), j * blockSize, i * blockSize, blockSize, blockSize);
+                    g.DrawRectangle(new Pen(Color.FromArgb(46, 139, 87), 1), j * blockSize, i * blockSize, blockSize, blockSize);
                 }
             }
         }
@@ -314,7 +299,14 @@ namespace Tetris
             {
                 return;
             }
-            
+
+            //绘制当前的方块  
+            // 初步想法：边框颜色固定，砖块颜色随机显示
+            Random rand = new Random();//随机数
+            int R = rand.Next(130, 255);
+            int G = rand.Next(130, 255);
+            int B = rand.Next(130, 255);
+
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
@@ -323,7 +315,8 @@ namespace Tetris
                     {
                         continue;
                     }
-                    g.DrawImage(blockImage, new Point((bx + j) * blockSize, (by + i) * blockSize));
+                    g.FillRectangle(new SolidBrush(Color.FromArgb(R, G, B)), (bx + j) * blockSize, (by + i) * blockSize, blockSize, blockSize);
+                    g.DrawRectangle(new Pen(Color.FromArgb(R, G, B), 1f), (bx + j) * blockSize, (by + i) * blockSize, blockSize, blockSize);
                 }
             }
         }
