@@ -67,5 +67,14 @@ namespace Tetris.Properties
                 resourceCulture = value;
             }
         }
+
+        internal static System.Drawing.Bitmap block
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("block", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

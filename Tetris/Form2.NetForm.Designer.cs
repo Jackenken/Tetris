@@ -19,33 +19,8 @@
             }
             base.Dispose(disposing);
         }
-
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
+        
         private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // Form2
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "Form2";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form2";
-            this.Load += new System.EventHandler(this.Form2_Load);
-            this.ResumeLayout(false);
-
-        }
-
-        #endregion
-
-        private void InitializeComponent2()
         {
             this.rad_host = new System.Windows.Forms.RadioButton();
             this.rad_client = new System.Windows.Forms.RadioButton();
@@ -59,7 +34,6 @@
             // 
             // netform
             // 
-            this.Client = null;
             this.ClientSize = new System.Drawing.Size(239, 181);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Location = new System.Drawing.Point(52, 52);

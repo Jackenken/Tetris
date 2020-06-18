@@ -62,6 +62,9 @@
     <Compile Include="Form3.NetFight.Designer.cs">
       <DependentUpon>Form3.NetFight.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form3.Thread.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Guideform.cs">
       <SubType>Form</SubType>
     </Compile>

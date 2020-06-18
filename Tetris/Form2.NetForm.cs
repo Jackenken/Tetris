@@ -72,7 +72,7 @@ namespace Tetris
 
         public Form2()
         {
-            InitializeComponent2();
+            InitializeComponent();
         }
         
         private void Form2_Load(object sender, EventArgs e)

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
 using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
+using Tetris.Properties;
+using System.Diagnostics;
 
 namespace Tetris
 {
@@ -24,542 +26,402 @@ namespace Tetris
 
     public partial class Form3 : Form
     {
-        //private Graphics g;//定义窗体画布
-        private int[,] currentTrick = new int[4, 4]; //当前的砖块
-        private int currentTrickNum;//当前砖块的数目
-        private int currentDirection = 0;// 当前砖块的方位
-        private int currentX;//当前坐标x
-        private int currentY;//当前坐标y
-        private int score;//分数
-        private int tricksNum = 4;//方块的数目
-        private int statusNum = 4;//方块的方位
-        private Image myImage;//我方游戏面板背景
-        private Image yourImage;//对方游戏面板背景
-        private Random rand = new Random();//随机数
-
-        int seed;// 随机数种子
-        GameState state;//游戏状态
-        TcpClient client;// 连接客户端
-        Thread cmdThread;// 接收命令线程
-        Thread mapThread;// 发送地图线程
-        Thread fallThread;// 自动下落线程
-        bool isFalling;// 是否在立即下落状态
+        #region 定义方块
 
         /// <summary>
-        /// 定义砖块int[i,j,y,x] 
-        /// tricks:i为块砖,j为状态,y为列,x为行
+        /// 方块 I
         /// </summary>
-        private int[,,,] tricks = {{
-                                     {
-                                         {1,0,0,0},
-                                         {1,0,0,0},
-                                         {1,0,0,0},
-                                         {1,0,0,0}
-                                     },
-                                     {
-                                         {1,1,1,1},
-                                         {0,0,0,0},
-                                         {0,0,0,0},
-                                         {0,0,0,0}
-                                     },
-                                     {
-                                         {1,0,0,0},
-                                         {1,0,0,0},
-                                         {1,0,0,0},
-                                         {1,0,0,0}
-                                     },
-                                     {
-                                         {1,1,1,1},
-                                         {0,0,0,0},
-                                         {0,0,0,0},
-                                         {0,0,0,0}
-                                     }
-                                },
-                                {
-                                      {
-                                          {1,1,0,0},
-                                          {1,1,0,0},
-                                          {0,0,0,0},
-                                          {0,0,0,0}
-                                      },
-                                      {
-                                          {1,1,0,0},
-                                          {1,1,0,0},
-                                          {0,0,0,0},
-                                          {0,0,0,0}
-                                      },
-                                      {
-                                          {1,1,0,0},
-                                          {1,1,0,0},
-                                          {0,0,0,0},
-                                          {0,0,0,0}
-                                      },
-                                      {
-                                          {1,1,0,0},
-                                          {1,1,0,0},
-                                          {0,0,0,0},
-                                          {0,0,0,0}
-                                      }
-                                  },
-                                  {
-                                      {
-                                          {1,0,0,0},
-                                          {1,1,0,0},
-                                          {0,1,0,0},
-                                          {0,0,0,0}
-                                      },
-                                      {
-                                          {0,1,1,0},
-                                          {1,1,0,0},
-                                          {0,0,0,0},
-                                          {0,0,0,0}
-                                      },
-                                      {
-                                          {1,0,0,0},
-                                          {1,1,0,0},
-                                          {0,1,0,0},
-                                          {0,0,0,0}
-                                      },
-                                      {
-                                          {0,1,1,0},
-                                          {1,1,0,0},
-                                          {0,0,0,0},
-                                          {0,0,0,0}
-                                      }
-                                  },
-                                  {
-                                      {
-                                          {1,1,0,0},
-                                          {0,1,0,0},
-                                          {0,1,0,0},
-                                          {0,0,0,0}
-                                      },
-                                      {
-                                          {0,0,1,0},
-                                          {1,1,1,0},
-                                          {0,0,0,0},
-                                          {0,0,0,0}
-                                      },
-                                      {
-                                          {1,0,0,0},
-                                          {1,0,0,0},
-                                          {1,1,0,0},
-                                          {0,0,0,0}
-                                      },
-                                      {
-                                          {1,1,1,0},
-                                          {1,0,0,0},
-                                          {0,0,0,0},
-                                          {0,0,0,0}
-                                      }
-                                  }
-                                    };
-
+        int[,,] block1 ={{{0,1,0,0},{0,1,0,0},{0,1,0,0},{0,1,0,0}},
+                                            {{0,0,0,0},{1,1,1,1},{0,0,0,0},{0,0,0,0}},
+                                            {{0,1,0,0},{0,1,0,0},{0,1,0,0},{0,1,0,0}},
+                                            {{0,0,0,0},{1,1,1,1},{0,0,0,0},{0,0,0,0}}};
 
         /// <summary>
-        /// 定义背景
-        /// 14*20的二维数组
-        /// 20行，14列
+        /// 方块 O
         /// </summary>
-        private int[,] bgGround ={
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-                                };
+        int[,,] block2 ={{{0,0,0,0},{0,3,3,0},{0,3,3,0},{0,0,0,0}},
+                                            {{0,0,0,0},{0,3,3,0},{0,3,3,0},{0,0,0,0}},
+                                            {{0,0,0,0},{0,3,3,0},{0,3,3,0},{0,0,0,0}},
+                                            {{0,0,0,0},{0,3,3,0},{0,3,3,0},{0,0,0,0}}};
+
+        /// <summary>
+        /// 方块 T
+        /// </summary>
+        int[,,] block3 ={{{0,0,0,0},{6,6,6,0},{0,6,0,0},{0,0,0,0}},
+                                            {{0,6,0,0},{6,6,0,0},{0,6,0,0},{0,0,0,0}},
+                                            {{0,6,0,0},{6,6,6,0},{0,0,0,0},{0,0,0,0}},
+                                            {{0,6,0,0},{0,6,6,0},{0,6,0,0},{0,0,0,0}}};
+
+        /// <summary>
+        /// 方块 S
+        /// </summary>
+        int[,,] block4 ={{{0,4,0,0},{4,4,0,0},{4,0,0,0},{0,0,0,0}},
+                                            {{4,4,0,0},{0,4,4,0},{0,0,0,0},{0,0,0,0}},
+                                            {{0,4,0,0},{4,4,0,0},{4,0,0,0},{0,0,0,0}},
+                                            {{4,4,0,0},{0,4,4,0},{0,0,0,0},{0,0,0,0}}};
+
+        /// <summary>
+        /// 方块 Z
+        /// </summary>
+        int[,,] block5 ={{{2,0,0,0},{2,2,0,0},{0,2,0,0},{0,0,0,0}},
+                                            {{0,2,2,0},{2,2,0,0},{0,0,0,0},{0,0,0,0}},
+                                            {{2,0,0,0},{2,2,0,0},{0,2,0,0},{0,0,0,0}},
+                                            {{0,2,2,0},{2,2,0,0},{0,0,0,0},{0,0,0,0}}};
+
+        /// <summary>
+        /// 方块 L
+        /// </summary>
+        int[,,] block6 ={{{0,5,0,0},{0,5,0,0},{0,5,5,0},{0,0,0,0}},
+                                            {{0,0,0,0},{0,5,5,5},{0,5,0,0},{0,0,0,0}},
+                                            {{0,0,0,0},{0,5,5,0},{0,0,5,0},{0,0,5,0}},
+                                            {{0,0,0,0},{0,0,5,0},{5,5,5,0},{0,0,0,0}}};
+
+        /// <summary>
+        /// 方块 J
+        /// </summary>
+        int[,,] block7 ={{{0,0,7,0},{0,0,7,0},{0,7,7,0},{0,0,0,0}},
+                                            {{0,0,0,0},{7,7,7,0},{0,0,7,0},{0,0,0,0}},
+                                            {{0,0,0,0},{0,7,7,0},{0,7,0,0},{0,7,0,0}},
+                                            {{0,0,0,0},{0,7,0,0},{0,7,7,7},{0,0,0,0}}};
+
+        #endregion
+
+        #region 字段声明
+
+        /// <summary>
+        /// 地图宽
+        /// </summary>
+        const int mapWidth = 12;
+
+        /// <summary>
+        /// 地图高
+        /// </summary>
+        const int mapHeight = 21;
+
+        /// <summary>
+        /// 格子大小
+        /// </summary>
+        const int blockSize = 20;
+
+        /// <summary>
+        /// 背景图案
+        /// </summary>
+        Image background;
+
+        /// <summary>
+        /// 分数
+        /// </summary>
+        int[] SCORES = { 0, 50, 100, 200, 300 };
+
+        /// <summary>
+        /// 地图
+        /// </summary>
+        int[,] map;
+
+        /// <summary>
+        /// 远端地图
+        /// </summary>
+        int[,] mapRemote;
+
+        /// <summary>
+        /// 方块图案
+        /// </summary>
+        Image blockImage=Resources.block;
+
+        /// <summary>
+        /// 方块
+        /// </summary>
+        List<int[,,]> blocks;
+
+        /// <summary>
+        /// 绘制远端地图和下一个方块用笔刷
+        /// </summary>
+        Brush[] brushBlock;
+
+        /// <summary>
+        /// 能量槽颜色
+        /// </summary>
+        Color[] colorPow;
+
+        /// <summary>
+        /// 速度
+        /// </summary>
+        int speed;
+
+        /// <summary>
+        /// 分数
+        /// </summary>
+        int score;
+
+        /// <summary>
+        /// 单机升级用分数
+        /// </summary>
+        int levelScore;
+
+        /// <summary>
+        /// 当前高度
+        /// </summary>
+        int height;
+
+        /// <summary>
+        /// 当前方块
+        /// </summary>
+        int[,,] currentBlock;
+
+        /// <summary>
+        /// 当前方块横坐标
+        /// </summary>
+        int bx;
+
+        /// <summary>
+        /// 当前方块纵坐标
+        /// </summary>
+        int by;
+
+        /// <summary>
+        /// 当前方块旋转
+        /// </summary>
+        int rot;
+
+        /// <summary>
+        /// 下一个方块
+        /// </summary>
+        int[,,] nextBlock;
+        
+        /// <summary>
+        /// 游戏状态
+        /// </summary>
+        GameState state;
+
+        /// <summary>
+        /// 随机数
+        /// </summary>
+        Random rnd;
+
+        /// <summary>
+        /// 随机数种子
+        /// </summary>
+        int seed;
+
+        /// <summary>
+        /// 计时器
+        /// </summary>
+        Stopwatch watch;
+
+        /// <summary>
+        /// 缓冲图像
+        /// </summary>
+        BufferedGraphics bf;
+
+        /// <summary>
+        /// 联机窗口
+        /// </summary>
+        Form2 frmNet;
+        
+        /// <summary>
+        /// 连接客户端
+        /// </summary>
+        TcpClient client;
+
+        /// <summary>
+        /// 接收命令线程
+        /// </summary>
+        Thread cmdThread;
+
+        /// <summary>
+        /// 发送地图线程
+        /// </summary>
+        Thread mapThread;
+
+        /// <summary>
+        /// 自动下落线程
+        /// </summary>
+        Thread fallThread;
+
+        /// <summary>
+        /// 是否在立即下落状态
+        /// </summary>
+        bool isFalling;
+        
+        #endregion
 
         public Form3()
         {
             InitializeComponent();
+            InitializeGame();
         }
 
-        private Guideform guideform;
+        public Guideform guideform;
 
         public Form3(Guideform that)
         {
             InitializeComponent();
+            InitializeGame();
             guideform = that;
         }
 
-        //使得关闭按钮灰化
-        protected override CreateParams CreateParams
+        /// <summary>
+        /// 初始化游戏数据
+        /// </summary>
+        private void InitializeGame()
         {
-            get
-            {
-                int CS_NOCLOSE = 0x200;
-                CreateParams parameters = base.CreateParams;
-                parameters.ClassStyle |= CS_NOCLOSE;
-                return parameters;
-            }
-        }
 
-        private void Form3_Load(object sender, EventArgs e)
-        {
-            //初始化面板，得到面板对象作背景图片
-            myImage = new Bitmap(panel1.Width, panel1.Height);
-            yourImage = new Bitmap(panel2.Width, panel2.Height);
-            //初始分数为0
-            score = 0;
+            //初始化方块
+            blocks = new List<int[,,]>();
+            blocks.AddRange(new int[][,,] { block1, block2, block3, block4, block5, block6, block7 });
+            
+            //初始化地图
+            map = new int[mapHeight, mapWidth];
+            mapRemote = new int[mapHeight, mapWidth];
+
+            //初始化笔刷, 颜色, 缓冲图形
+            brushBlock = new Brush[] { null, Brushes.Red, Brushes.Orange, Brushes.Yellow, Brushes.Green, Brushes.Cyan, Brushes.Blue, Brushes.Purple, Brushes.Gray };
+            colorPow = new Color[] { Color.Yellow, Color.Orange, Color.Red, Color.Red };
+            bf = BufferedGraphicsManager.Current.Allocate(panel1.CreateGraphics(), panel1.DisplayRectangle);
+
+            //其它
+            watch = new Stopwatch();
+            state = GameState.End;
+            frmNet = new Form2();
+            
         }
 
         /// <summary>
-        /// 重写窗体重绘的方法
+        /// 绘制地图
         /// </summary>
-        /// <param name="e"></param>
-        protected override void OnPaint(PaintEventArgs e)
+        private void PaintMap(Graphics g)
         {
-            //调用画方块的方法
-            //DrawTetris();
-            base.OnPaint(e);
-        }
-
-        /// <summary>  
-        /// 随机生成方块和状态  
-        /// </summary>  
-        private void BeginTricks()
-        {
-            //随机生成砖码和状态码(0-4)  
-            int i = rand.Next(0, tricksNum);
-            int j = rand.Next(0, statusNum);
-            currentTrickNum = i;
-            currentDirection = j;
-            //分配数组  
-            for (int y = 0; y < 4; y++)
+            for (int i = 0; i < map.GetLength(0); i++)
             {
-                for (int x = 0; x < 4; x++)
+                for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    currentTrick[y, x] = tricks[i, j, y, x];
-                }
-            }
-            //从(7,0)位置开始放砖块
-            currentX = 7;
-            currentY = 0;
-            //开启计时器
-            timer1.Start();
-        }
-
-
-        /// <summary>  
-        ///  旋转方块  
-        /// </summary>  
-        private void ChangeTricks()
-        {
-            //判断当前方块的方位
-            if (currentDirection < 3)
-            {
-                //改变方块的方位
-                currentDirection++;
-            }
-            else
-            {
-                //恢复到默认方位
-                currentDirection = 0;
-            }
-
-
-            for (int y = 0; y < 4; y++)
-            {
-                for (int x = 0; x < 4; x++)
-                {
-                    currentTrick[y, x] = tricks[currentTrickNum, currentDirection, y, x];
-                }
-            }
-        }
-
-        /// <summary>  
-        /// 下落方块  
-        /// </summary>  
-        private void DownTricks()
-        {
-            //判断是否可以下落
-            if (CheckIsDown())
-            {
-                //下落时，纵坐标加1
-                currentY++;
-            }
-            else
-            {
-                //如果方块已经堆积到画布的上边界
-                if (currentY == 0)
-                {
-                    //计时停止，游戏结束
-                    timer1.Stop();
-                    MessageBox.Show("哈哈，你玩完了");
-                    return;
-                }
-                //下落完成，修改背景  
-                for (int y = 0; y < 4; y++)
-                {
-                    for (int x = 0; x < 4; x++)
+                    if (map[i, j] == 0)
                     {
-                        if (currentTrick[y, x] == 1)
-                        {
-                            bgGround[currentY + y, currentX + x] = currentTrick[y, x];
-                        }
+                        continue;
                     }
+                    g.DrawImage(blockImage, new Point(j * blockSize, i * blockSize));
                 }
-                CheckScore();
-
-                BeginTricks();
-
-            }
-            DrawTetris();
-        }
-
-
-        /// <summary>  
-        /// 检测是否可以向下了  
-        /// </summary>  
-        /// <returns></returns>  
-        private bool CheckIsDown()
-        {
-            for (int y = 0; y < 4; y++)
-            {
-                for (int x = 0; x < 4; x++)
-                {
-                    if (currentTrick[y, x] == 1)
-                    {
-                        //超过了背景  
-                        if (y + currentY + 1 >= 20)
-                        {
-                            return false;
-                        }
-                        if (x + currentX >= 14)
-                        {
-                            currentX = 13 - x;
-                        }
-                        if (bgGround[y + currentY + 1, x + currentX] == 1)
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-            return true;
-        }
-
-        /// <summary>  
-        /// 检测方块是否可以左移  
-        /// </summary>  
-        /// <returns></returns>  
-        private bool CheckIsLeft()
-        {
-            for (int y = 0; y < 4; y++)
-            {
-                for (int x = 0; x < 4; x++)
-                {
-                    if (currentTrick[y, x] == 1)
-                    {
-                        if (x + currentX - 1 < 0)
-                        {
-                            return false;
-                        }
-                        if (bgGround[y + currentY, x + currentX - 1] == 1)
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-            return true;
-        }
-
-
-        /// <summary>  
-        /// 检测方块是否可以右移  
-        /// </summary>  
-        /// <returns></returns>  
-        private bool CheckIsRight()
-        {
-            for (int y = 0; y < 4; y++)
-            {
-                for (int x = 0; x < 4; x++)
-                {
-                    if (currentTrick[y, x] == 1)
-                    {
-                        if (x + currentX + 1 >= 14)
-                        {
-                            return false;
-                        }
-                        if (bgGround[y + currentY, x + currentX + 1] == 1)
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-            return true;
-        }
-
-
-        /// <summary>
-        /// 画本地的方块的方法
-        /// </summary>
-        private void DrawTetris()
-        {
-            //创建窗体画布
-            Graphics g1 = Graphics.FromImage(myImage);
-            //清除以前画的图形
-            g1.Clear(this.BackColor);
-            //画出已经掉下的方块
-            //对于已经落下的砖块，统一用一种颜色表示
-            for (int bgy = 0; bgy < 20; bgy++)
-            {
-                for (int bgx = 0; bgx < 14; bgx++)
-                {
-                    if (bgGround[bgy, bgx] == 1)
-                    {
-                        g1.FillRectangle(new SolidBrush(Color.FromArgb(204, 255, 204)), bgx * 20, bgy * 20, 20, 20);
-                        g1.DrawRectangle(new Pen(Color.FromArgb(46, 139, 87), 1), bgx * 20, bgy * 20, 20, 20);
-                    }
-                }
-            }
-            //绘制当前的方块  
-            // 初步想法：边框颜色固定，砖块颜色随机显示
-            // 定义随机数种子生成rgb值
-            int R = rand.Next(130, 255);
-            int G = rand.Next(130, 255);
-            int B = rand.Next(130, 255);
-            for (int y = 0; y < 4; y++)
-            {
-                for (int x = 0; x < 4; x++)
-                {
-                    if (currentTrick[y, x] == 1)
-                    {
-                        //定义方块每一个小单元的边长为20
-                        g1.FillRectangle(new SolidBrush(Color.FromArgb(R, G, B)), (x + currentX) * 20, (y + currentY) * 20, 20, 20);
-                        g1.DrawRectangle(new Pen(Color.FromArgb(R, G, B), 1f), (x + currentX) * 20, (y + currentY) * 20, 20, 20);
-                        
-                    }
-                }
-            }
-
-            //获取面板的画布
-            Graphics gg1 = panel1.CreateGraphics();
-
-            gg1.DrawImage(myImage, 0, 0);
-        }
-
-        /// <summary>
-        /// 画远方的方块的方法
-        /// </summary>
-        private void DrawRemoteTetris()
-        {
-            //创建窗体画布
-            Graphics g2 = Graphics.FromImage(yourImage);
-            //清除以前画的图形
-            g2.Clear(this.BackColor);
-            //画出已经掉下的方块
-            //对于已经落下的砖块，统一用一种颜色表示
-            for (int bgy = 0; bgy < 20; bgy++)
-            {
-                for (int bgx = 0; bgx < 14; bgx++)
-                {
-                    if (bgGround[bgy, bgx] == 1)
-                    {
-                        g2.FillRectangle(new SolidBrush(Color.FromArgb(204, 255, 204)), bgx * 5, bgy * 5, 5, 5);
-                        g2.DrawRectangle(new Pen(Color.FromArgb(46, 139, 87), 1), bgx * 5, bgy * 5, 5, 5);
-                    }
-                }
-            }
-            //绘制当前的方块  
-            // 初步想法：边框颜色固定，砖块颜色随机显示
-            // 定义随机数种子生成rgb值
-            int R = rand.Next(130, 255);
-            int G = rand.Next(130, 255);
-            int B = rand.Next(130, 255);
-            for (int y = 0; y < 4; y++)
-            {
-                for (int x = 0; x < 4; x++)
-                {
-                    if (currentTrick[y, x] == 1)
-                    {
-                        //定义方块每一个小单元的边长为5
-                        g2.FillRectangle(new SolidBrush(Color.FromArgb(R, G, B)), (x + currentX) * 5, (y + currentY) * 5, 5, 5);
-                        g2.DrawRectangle(new Pen(Color.FromArgb(R, G, B), 1f), (x + currentX) * 5, (y + currentY) * 5, 5, 5);
-                    }
-                }
-            }
-
-            //获取面板的画布
-            Graphics gg2 = panel2.CreateGraphics();
-
-            gg2.DrawImage(yourImage, 0, 0);
-        }
-
-        /// <summary>
-        /// 判断是否一行填满取得奖励得分的方法
-        /// </summary>
-        private void CheckScore()
-        {
-            for (int y = 19; y > -1; y--)
-            {
-                bool isFull = true;
-                for (int x = 13; x > -1; x--)
-                {
-                    if (bgGround[y, x] == 0)
-                    {
-                        isFull = false;
-                        break;
-                    }
-                }
-                if (isFull)
-                {
-                    //增加积分  
-                    score = score + 100;
-                    for (int yy = y; yy > 0; yy--)
-                    {
-                        for (int xx = 0; xx < 14; xx++)
-                        {
-                            int temp = bgGround[yy - 1, xx];
-                            bgGround[yy, xx] = temp;
-                        }
-                    }
-                    y++;
-                    label1.Text = "游戏得分： " + score.ToString(); ;
-                    DrawTetris();
-                }
-
             }
         }
 
         /// <summary>
-        /// 计时器事件监听方法
+        /// 绘制当前方块
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void timer1_Tick(object sender, EventArgs e)
+        private void PaintCurrentBlock(Graphics g)
         {
-            DownTricks();
+            //游戏未开始不画
+            if (currentBlock == null)
+            {
+                return;
+            }
+            
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (currentBlock[rot, i, j] == 0)
+                    {
+                        continue;
+                    }
+                    g.DrawImage(blockImage, new Point((bx + j) * blockSize, (by + i) * blockSize));
+                }
+            }
         }
 
+        /// <summary>
+        /// 缓冲画图
+        /// </summary>
+        private void RePaint()
+        {
+            RenderBuffer();
+        }
+
+        /// <summary>
+        /// 游戏窗口绘制
+        /// </summary>
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            RePaint();
+        }
+        
+        /// <summary>
+        /// 绘制远端地图
+        /// </summary>
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+            
+            for (int i = 0; i < mapHeight; i++)
+            {
+                for (int j = 0; j < mapWidth; j++)
+                {
+                    if (mapRemote[i, j] == 0)
+                    {
+                        continue;
+                    }
+                    e.Graphics.FillRectangle(brushBlock[mapRemote[i, j]], new Rectangle(j * 5, i * 5, 5, 5));
+                }
+            }
+        }
+
+        /// <summary>
+		/// 按键响应
+		/// </summary>
+		private void Form3_KeyDown(object sender, KeyEventArgs e)
+        {
+            //游戏未开始不响应按键
+            if (state == GameState.End)
+            {
+                return;
+            }
+
+            switch (e.KeyCode)
+            {
+                case Keys.A:
+                    if (IsMovable(-1))
+                    {
+                        bx--;
+                    }
+                    break;
+                case Keys.D:
+                    if (IsMovable(1))
+                    {
+                        bx++;
+                    }
+                    break;
+                case Keys.W:
+                    if (IsChangable(-1))
+                    {
+                        rot = --rot < 0 ? 3 : rot;
+                    }
+                    break;
+                case Keys.S:
+                    if (IsFallable())
+                    {
+                        by++;
+                    }
+                    break;
+                case Keys.Space:
+                    FallDown();
+                    break;
+            }
+            RePaint();
+        }
+
+        /// <summary>
+        /// 开始联机游戏
+        /// </summary>
         private void button3_Click(object sender, EventArgs e)
         {
             if (button3.Text == "连接主机/副机")
             {
-                //DialogResult dr = frmNet.ShowDialog();
-                Form2 frmNet = new Form2();
-                frmNet.Show();
+                DialogResult dr = frmNet.ShowDialog();
+                if (dr == DialogResult.Cancel)
+                {
+                    return;
+                }
 
                 button3.Text = "断开连接";
-                button3.Enabled = false;
-                button3.Enabled = false;
+                button1.Enabled = false;
 
                 state = frmNet.State;
                 client = frmNet.Client;
@@ -569,141 +431,33 @@ namespace Tetris
                 if (state == GameState.Host)
                 {
                     seed = DateTime.Now.Millisecond;
-                    //SendCommand(string.Format("rnd:{0}:", seed));
-                    //GameStart();
+                    SendCommand(string.Format("rnd:{0}:", seed));
+                    GameStart();
                 }
             }
             else
             {
-                //SendCommand("exit:");
-                //GameEnd("你跑了");
-            }
-
-        }
-
-        /***
-        /// <summary>
-		/// 自动下落线程
-		/// </summary>
-		private void AutoFall()
-        {
-            while (state != GameState.End)
-            {
-                Thread.Sleep(speed);
-
-                //防止重复消行
-                if (isFalling)
-                {
-                    continue;
-                }
-
-                if (!IsFallable())
-                {
-                    PlaceBlock();
-                    height = CalculateHeight();
-                    if (height >= mapHeight)
-                    {
-                        
-                        SendCommand("loose:");
-                        GameEnd("你输了");
-                        
-                        return;
-                    }
-                    UpdateData();
-                    SetCurrentBlock();
-                    SetNextBlock();
-                }
-                else
-                {
-                    by++;
-                }
-                RePaint();
+                SendCommand("exit:");
+                GameEnd("你跑了");
             }
         }
-        ****/
-
+        
         /// <summary>
-        /// 发送地图信息线程
+        /// 返回
         /// </summary>
-        private void SendMap()
-        {
-            while (state == GameState.Host || state == GameState.Client)
-            {
-                Thread.Sleep(3000);
-                //SendCommand(string.Format("map:{0}:", SerializeMap(map)));
-            }
-        }
-
-        /// <summary>
-        /// 接收命令线程
-        /// </summary>
-        private void ReceiveCommand()
-        {
-            while (state == GameState.Host || state == GameState.Client)
-            {
-                //buffer要大于 mapHeight * mapWidth + n
-                byte[] buffer = new byte[260];
-
-                try
-                {
-                    client.Client.Receive(buffer);
-                }
-                catch
-                {
-                    return;
-                }
-
-                string cmd = Encoding.ASCII.GetString(buffer);
-                string[] token = cmd.Split(':');
-                switch (token[0])
-                {
-                    //随机数种子 "rnd:seed:"
-                    case "rnd":
-                        seed = int.Parse(token[1]);
-                        //GameStart();
-                        break;
-
-                    //地图信息 "map:地图:"
-                    case "map":
-                        //mapRemote = DeserializeMap(token[1].ToCharArray());
-                        //RefreshControl(pnlGameRemote);
-                        break;
-                    
-                    //退出 "exit:"
-                    case "exit":
-                        //GameEnd("貌似那边撤了");
-                        break;
-
-                    //输了 "loose:"
-                    case "loose":
-                        //GameEnd("嗯, 你赢了");
-                        break;
-
-                    //断线
-                    default:
-                        if (client != null && state != GameState.End)
-                        {
-                            //GameEnd("貌似是那边 [ 断线/离线 ] 了");
-                        }
-                        return;
-                }
-            }
-        }
-
         private void button1_Click(object sender, EventArgs e)
-        {            
-            guideform.Show();            
+        {
+            //Guideform guideform = new Guideform();
+            guideform.Show();
+            //this.Owner.Show();
             this.Dispose(true);
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        
+        private void Form3_Load(object sender, EventArgs e)
         {
-
-        }
-
-        private void Form3_Load_1(object sender, EventArgs e)
-        {
-
+            //初始化面板，得到面板对象作背景图片
+            background = new Bitmap(panel1.Width, panel1.Height);
         }
     }
 }
