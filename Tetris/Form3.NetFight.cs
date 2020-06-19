@@ -1,10 +1,9 @@
 ﻿using System;
+using System.Windows.Forms;
+using System.Net.Sockets;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Net.Sockets;
 using System.Threading;
-using System.Windows.Forms;
-using Tetris.Properties;
 using System.Diagnostics;
 
 namespace Tetris

@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
@@ -16,24 +9,13 @@ namespace Tetris
     {
         #region 声明变量
 
-        /// <summary>
-        /// 自机ip
-        /// </summary>
+        // 本机ip
         IPAddress hostIP;
-
-        /// <summary>
-        /// 远端ip
-        /// </summary>
+        // 远端ip
         IPAddress remoteIP;
-
-        /// <summary>
-        /// tcp监听器, 做主机用
-        /// </summary>
+        // tcp监听器, 做主机用
         TcpListener listener;
-
-        /// <summary>
-        /// tcp客户端, 做副机用
-        /// </summary>
+        // tcp客户端, 做副机用
         TcpClient client;
 
         /// <summary>
@@ -45,14 +27,9 @@ namespace Tetris
             set { client = value; }
         }
 
-        /// <summary>
-        /// 是否取消连接
-        /// </summary>
+        // 是否取消连接
         bool abort;
-
-        /// <summary>
-		/// 游戏模式
-		/// </summary>
+        // 游戏模式
 		GameState state;
 
         /// <summary>
@@ -64,9 +41,7 @@ namespace Tetris
             set { state = value; }
         }
 
-        /// <summary>
-        /// 异步状态
-        /// </summary>
+        // 异步状态
         IAsyncResult ar;
         #endregion
 
@@ -123,7 +98,7 @@ namespace Tetris
                 Restore();
                 return;
             }
-            //state = GameState.Host;
+            state = GameState.Host;
             this.DialogResult = DialogResult.OK;
             this.Hide();
         }
@@ -153,7 +128,7 @@ namespace Tetris
                 Restore();
                 return;
             }
-            //state = GameState.Client;
+            state = GameState.Client;
             this.DialogResult = DialogResult.OK;
             this.Hide();
         }

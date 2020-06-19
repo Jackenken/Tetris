@@ -151,39 +151,19 @@
 
         }
 
-        /// <summary>
-        /// "Host" 单选按钮
-        /// </summary>
+        // "Host" 单选按钮
         private System.Windows.Forms.RadioButton rad_host;
-
-        /// <summary>
-        /// "Client" 单选按钮
-        /// </summary>
+        // "Client" 单选按钮
         private System.Windows.Forms.RadioButton rad_client;
-
-        /// <summary>
-        /// ip输入框
-        /// </summary>
+        // ip输入框
         private System.Windows.Forms.MaskedTextBox mtb_remoteIp;
-
-        /// <summary>
-        /// "Connect" 和 "Start Host" 按钮
-        /// </summary>
+        // "Connect" 和 "Start Host" 按钮
         private System.Windows.Forms.Button btn_connect;
-
-        /// <summary>
-        /// "Cancel" 按钮
-        /// </summary>
+        // "Cancel" 按钮
         private System.Windows.Forms.Button btn_cancel;
-
-        /// <summary>
-        /// 显示提示信息
-        /// </summary>
+        // 显示提示信息
         private System.Windows.Forms.Label lbl_tip;
-
-        /// <summary>
-        /// 显示ip列表
-        /// </summary>
+        // 显示ip列表
         private System.Windows.Forms.ComboBox cbo_ip;
     }
 }
