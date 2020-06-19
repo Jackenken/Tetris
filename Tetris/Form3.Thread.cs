@@ -99,7 +99,6 @@ namespace Tetris
                     //连续消行信息 "add:行数:"
                     case "add":
                         int number = int.Parse(token[1]);
-                        AppendMessage(string.Format("连消 {0} 层", number + 1), Color.Orange);
                         AddLine(number);
                         break;
 

@@ -275,6 +275,7 @@ namespace Tetris
         /// </summary>
         private void PaintMap(Graphics g)
         {
+            g.Clear(this.BackColor);
             for (int i = 0; i < map.GetLength(0); i++)
             {
                 for (int j = 0; j < map.GetLength(1); j++)
@@ -434,7 +435,19 @@ namespace Tetris
                 GameEnd("你跑了");
             }
         }
-        
+
+        //使得关闭按钮灰化
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                int CS_NOCLOSE = 0x200;
+                CreateParams parameters = base.CreateParams;
+                parameters.ClassStyle |= CS_NOCLOSE;
+                return parameters;
+            }
+        }
+
         /// <summary>
         /// 返回
         /// </summary>
