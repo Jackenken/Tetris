@@ -70,7 +70,6 @@ namespace Tetris
                 //buffer要大于 mapHeight * mapWidth + n
                 byte[] buffer = new byte[260];
 
-                //意义不明 try-catch
                 try
                 {
                     client.Client.Receive(buffer);
@@ -81,6 +80,7 @@ namespace Tetris
                 }
 
                 string cmd = Encoding.ASCII.GetString(buffer);
+
                 string[] token = cmd.Split(':');
                 switch (token[0])
                 {
@@ -234,7 +234,7 @@ namespace Tetris
 
             frmNet.Restore();
 
-            //关闭线程, 能否每次关闭不明
+            //关闭线程
 
             if (fallThread != null)
             {
@@ -642,13 +642,13 @@ namespace Tetris
         {
             byte[] buffer = Encoding.ASCII.GetBytes(cmd);
 
-            //意义不明 try-catch
             try
             {
                 client.Client.Send(buffer, 0, buffer.Length, SocketFlags.None);
             }
             catch
             {
+                return;
             }
         }
     }

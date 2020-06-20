@@ -192,34 +192,17 @@ namespace Tetris
         /// </summary>
         Stopwatch watch;
 
-        /// <summary>
-        /// 缓冲图像
-        /// </summary>
+        // 缓冲图像
         BufferedGraphics bf;
-
-        /// <summary>
-        /// 联机窗口
-        /// </summary>
+        // 联机窗口
         Form2 frmNet;
-        
-        /// <summary>
-        /// 连接客户端
-        /// </summary>
+        // 连接客户端
         TcpClient client;
-
-        /// <summary>
-        /// 接收命令线程
-        /// </summary>
+        // 接收命令线程
         Thread cmdThread;
-
-        /// <summary>
-        /// 发送地图线程
-        /// </summary>
+        // 发送地图线程
         Thread mapThread;
-
-        /// <summary>
-        /// 自动下落线程
-        /// </summary>
+        // 自动下落线程
         Thread fallThread;
 
         /// <summary>
