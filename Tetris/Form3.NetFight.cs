@@ -225,6 +225,8 @@ namespace Tetris
             InitializeComponent();
             InitializeGame();
             guideform = that;
+            this.BackgroundImage = Properties.Resources.Tetris4;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
         }
 
         /// <summary>

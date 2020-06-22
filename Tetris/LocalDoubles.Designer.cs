@@ -44,25 +44,28 @@
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(124, 36);
+            this.panel1.Location = new System.Drawing.Point(186, 54);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(295, 391);
+            this.panel1.Size = new System.Drawing.Size(442, 586);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint_1);
             // 
             // panel2
             // 
-            this.panel2.Location = new System.Drawing.Point(595, 36);
+            this.panel2.Location = new System.Drawing.Point(892, 54);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(295, 391);
+            this.panel2.Size = new System.Drawing.Size(442, 586);
             this.panel2.TabIndex = 1;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(429, 55);
+            this.button1.Location = new System.Drawing.Point(644, 82);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(160, 23);
+            this.button1.Size = new System.Drawing.Size(240, 34);
             this.button1.TabIndex = 2;
             this.button1.Text = "开始双人游戏";
             this.button1.UseVisualStyleBackColor = true;
@@ -70,9 +73,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(24, 157);
+            this.button2.Location = new System.Drawing.Point(36, 236);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(112, 34);
             this.button2.TabIndex = 3;
             this.button2.Text = "暂停游戏";
             this.button2.UseVisualStyleBackColor = true;
@@ -80,9 +84,10 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(898, 133);
+            this.button4.Location = new System.Drawing.Point(1347, 200);
+            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(112, 23);
+            this.button4.Size = new System.Drawing.Size(168, 34);
             this.button4.TabIndex = 5;
             this.button4.Text = "暂停游戏";
             this.button4.UseVisualStyleBackColor = true;
@@ -90,9 +95,10 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(429, 248);
+            this.button7.Location = new System.Drawing.Point(644, 372);
+            this.button7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(159, 23);
+            this.button7.Size = new System.Drawing.Size(238, 34);
             this.button7.TabIndex = 8;
             this.button7.Text = "返回主菜单";
             this.button7.UseVisualStyleBackColor = true;
@@ -100,9 +106,10 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(22, 26);
+            this.label1.Location = new System.Drawing.Point(33, 39);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 25);
+            this.label1.Size = new System.Drawing.Size(144, 38);
             this.label1.TabIndex = 9;
             this.label1.Text = "游戏得分：0";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -110,18 +117,20 @@
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(896, 36);
+            this.label2.Location = new System.Drawing.Point(1344, 54);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(96, 25);
+            this.label2.Size = new System.Drawing.Size(144, 38);
             this.label2.TabIndex = 10;
             this.label2.Text = "游戏得分：0";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(429, 179);
+            this.button5.Location = new System.Drawing.Point(644, 268);
+            this.button5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(159, 23);
+            this.button5.Size = new System.Drawing.Size(238, 34);
             this.button5.TabIndex = 6;
             this.button5.Text = "暂停双人游戏";
             this.button5.UseVisualStyleBackColor = true;
@@ -134,17 +143,18 @@
             "简单",
             "一般",
             "困难"});
-            this.comboBox1.Location = new System.Drawing.Point(24, 216);
+            this.comboBox1.Location = new System.Drawing.Point(36, 324);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(75, 20);
+            this.comboBox1.Size = new System.Drawing.Size(110, 26);
             this.comboBox1.TabIndex = 11;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // LocalDoubles
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1033, 523);
+            this.ClientSize = new System.Drawing.Size(1550, 784);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -155,6 +165,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "LocalDoubles";
             this.Text = "LocalDoubles";
             this.ResumeLayout(false);

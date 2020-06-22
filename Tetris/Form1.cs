@@ -8,13 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace Tetris
 {
-    
     public partial class Form1 : Form
     {
-
         //private Graphics g;//定义窗体画布
         private int[,] currentTrick = new int[4, 4]; //当前的砖块
         private int currentTrickNum;//当前砖块的数目
@@ -26,7 +25,7 @@ namespace Tetris
         private int statusNum = 4;//方块的方位
         private Image myImage;//游戏面板背景
         private Random rand = new Random();//随机数
-        
+
         /// <summary>
         /// 定义砖块int[i,j,y,x] 
         /// tricks:i为块砖,j为状态,y为列,x为行
@@ -180,6 +179,10 @@ namespace Tetris
         {
             InitializeComponent();
             guideform = that;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.BackgroundImage = Properties.Resources.Tetris2;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
         }
 
         /// <summary>
@@ -278,7 +281,7 @@ namespace Tetris
                     //计时停止，游戏结束
                     timer1.Stop();
                     MessageBox.Show("哈哈，你玩完了");
-                    return;
+                    return;                
                 }
                 //下落完成，修改背景  
                 for (int y = 0; y < 4; y++)
@@ -640,5 +643,6 @@ namespace Tetris
         {
 
         }
+
     }
 }

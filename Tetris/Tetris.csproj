@@ -111,6 +111,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -125,7 +126,57 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="bin\pictures\Tetris1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\pictures\Btn1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\pictures\Btn1deep.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\pictures\Btn4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\pictures\Btn4deep.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\pictures\Btn4glow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\pictures\Btn1glow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\pictures\Btn2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\pictures\Btn2deep.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\pictures\Btn2glow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\pictures\Btn3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\pictures\Btn3deep.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\pictures\Btn3glow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\pictures\Tetris2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\pictures\Tetris3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\pictures\Tetris4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\sounds\SWOOSH.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

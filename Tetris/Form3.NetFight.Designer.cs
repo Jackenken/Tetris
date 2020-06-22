@@ -43,10 +43,11 @@ namespace Tetris
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(347, 50);
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Location = new System.Drawing.Point(429, 60);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(98, 15);
+            this.label1.Size = new System.Drawing.Size(116, 18);
             this.label1.TabIndex = 0;
             this.label1.Text = "游戏得分： 0";
             // 
@@ -55,9 +56,9 @@ namespace Tetris
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Location = new System.Drawing.Point(3, 2);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(320, 525);
+            this.panel1.Size = new System.Drawing.Size(360, 629);
             this.panel1.TabIndex = 2;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -65,19 +66,21 @@ namespace Tetris
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Location = new System.Drawing.Point(350, 402);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4);
+            this.panel2.Location = new System.Drawing.Point(413, 482);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(80, 125);
+            this.panel2.Size = new System.Drawing.Size(90, 149);
             this.panel2.TabIndex = 3;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(331, 269);
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button3.Location = new System.Drawing.Point(413, 323);
             this.button3.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(122, 28);
+            this.button3.Size = new System.Drawing.Size(137, 34);
             this.button3.TabIndex = 5;
             this.button3.Text = "连接主机/副机";
             this.button3.UseVisualStyleBackColor = true;
@@ -85,10 +88,11 @@ namespace Tetris
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(331, 312);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Location = new System.Drawing.Point(413, 374);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(122, 29);
+            this.button1.Size = new System.Drawing.Size(137, 35);
             this.button1.TabIndex = 6;
             this.button1.Text = "返回主界面";
             this.button1.UseVisualStyleBackColor = true;
@@ -98,21 +102,21 @@ namespace Tetris
             // 
             this.txtMessage.BackColor = System.Drawing.Color.White;
             this.txtMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMessage.Location = new System.Drawing.Point(331, 150);
-            this.txtMessage.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMessage.Location = new System.Drawing.Point(413, 181);
+            this.txtMessage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtMessage.Name = "txtMessage";
             this.txtMessage.ReadOnly = true;
             this.txtMessage.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.txtMessage.Size = new System.Drawing.Size(131, 85);
+            this.txtMessage.Size = new System.Drawing.Size(147, 101);
             this.txtMessage.TabIndex = 13;
             this.txtMessage.TabStop = false;
             this.txtMessage.Text = "";
             // 
             // Form3
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 530);
+            this.ClientSize = new System.Drawing.Size(609, 694);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.panel2);

@@ -213,6 +213,10 @@ namespace Tetris
         {
             InitializeComponent();
             guideform = that;
+            this.Width = 1225;
+            this.Height = 550;
+            this.BackgroundImage = Properties.Resources.Tetris3;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
         }
 
 
